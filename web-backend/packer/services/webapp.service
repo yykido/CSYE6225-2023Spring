@@ -1,0 +1,17 @@
+[Unit]
+Description=A Spring Boot application
+After=syslog.target
+
+[Service]
+User=ec2-user
+ExecStart=/bin/bash -c 'source /opt/setenv.sh && /usr/bin/java -jar /opt/webapp/webapp.jar >> /opt/webapp/csye6225.log'
+SuccessExitStatus=143
+Restart=always
+RestartSec=30
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=webapp
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
